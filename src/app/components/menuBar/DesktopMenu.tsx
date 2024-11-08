@@ -1,63 +1,103 @@
 'use client'
-import Link from 'next/link'
+import { useState } from 'react'
+import MenuItem from './MenuItem'
 import { usePathname } from 'next/navigation'
-import clsx from 'clsx'
 
 import { MenuItemInterface } from '.'
 import { Site } from '@/library/sites'
+import Divider from '../Divider'
+
+type TimeRange = '30days' | 'alltime'
+
+function NavigationLinks({
+  menuItems,
+  currentPath,
+}: {
+  menuItems: MenuItemInterface[]
+  currentPath: string
+}) {
+  return menuItems.map((menuItem) => (
+    <MenuItem
+      key={menuItem.slug}
+      href={menuItem.slug}
+      displayName={menuItem.displayName}
+      isActive={currentPath === '/'}
+    />
+  ))
+}
+
+function SiteLinks({
+  sites,
+  currentPath,
+}: {
+  sites: Site[]
+  currentPath: string
+}) {
+  return sites.map((site) => (
+    <MenuItem
+      key={site.slug}
+      href={site.slug}
+      displayName={site.displayName}
+      isActive={currentPath === `/${site.slug}`}
+    />
+  ))
+}
+
+interface TimeFiltersProps {
+  selectedRange: TimeRange
+  onRangeChange: () => void
+}
+
+function TimeFilters({ selectedRange, onRangeChange }: TimeFiltersProps) {
+  return (
+    <div className="flex flex-col gap-4 w-fit">
+      <MenuItem
+        displayName="Last 30 days"
+        isActive={selectedRange === '30days'}
+        onClick={() => onRangeChange('30days')}
+      />
+      <MenuItem
+        displayName="All time"
+        isActive={selectedRange === 'alltime'}
+        onClick={() => onRangeChange('alltime')}
+      />
+    </div>
+  )
+}
 
 interface DesktopMenuProps {
   menuItems: MenuItemInterface[]
   sites: Site[]
+  initialTimeRange?: TimeRange
+  onTimeRangeChange?: (range: TimeRange) => void
 }
 
-export default function DesktopMenu({ menuItems, sites }: DesktopMenuProps) {
+export default function DesktopMenu({
+  menuItems,
+  sites,
+  initialTimeRange = '30days',
+  onTimeRangeChange,
+}: DesktopMenuProps) {
   const path = usePathname()
-  console.log(path)
+  const [timeRange, setTimeRange] = useState<TimeRange>(initialTimeRange)
+
+  const handleTimeRangeChange = (range: TimeRange) => {
+    setTimeRange(range)
+    onTimeRangeChange?.(range)
+  }
 
   return (
-    <nav className="space-y-4">
-      {menuItems.map((menuItem) => (
-        <Link
-          href={menuItem.slug}
-          key={menuItem.slug}
-          className={clsx(
-            'px-2.5 py-2 text-base font-medium shrink-0 rounded w-full block md:hover:text-blue-500 transition-colors duration-200 md:active:text-blue-500',
-            path === '/' && 'bg-blue-500/10'
-          )}
-        >
-          {menuItem.displayName}
-        </Link>
-      ))}
-      <hr className="my-3 w-full h-px border-0 bg-gradient-to-r from-violet-800/5 via-violet-800/20 to-violet-800/5" />
-      {sites.map((site) => (
-        <Link
-          href={site.slug}
-          key={site.slug}
-          className={clsx(
-            'px-2.5 py-2 text-base font-medium shrink-0 rounded w-full block md:hover:text-blue-500 transition-colors duration-200 md:active:text-blue-500',
-            path === `/${site.slug}` && 'bg-blue-500/10'
-          )}
-        >
-          {site.displayName}
-        </Link>
-      ))}
-      <hr className="my-3 w-full h-px border-0 bg-gradient-to-r from-violet-800/5 via-violet-800/20 to-violet-800/5" />
-      <span
-        className={clsx(
-          'px-2.5 py-2 text-sm shrink-0 rounded w-full block md:hover:text-blue-500 transition-colors duration-200 md:active:text-blue-500',
-          'bg-blue-500/10'
-        )}
-      >
-        {`Last 30 days`}
-      </span>
-      <span
-        className={clsx(
-          'px-2.5 py-2 text-sm shrink-0 rounded w-full block md:hover:text-blue-500 transition-colors duration-200 md:active:text-blue-500'
-        )}
-      >
-        {`All time`}
-      </span>
-    </nav>
+    <div className="lg:w-72">
+      <nav className="space-y-4">
+        <NavigationLinks menuItems={menuItems} currentPath={path} />
+        <Divider />
+        <SiteLinks sites={sites} currentPath={path} />
+      </nav>
+      <Divider />
+      <TimeFilters
+        selectedRange={timeRange}
+        onRangeChange={handleTimeRangeChange}
+      />
+    </div>
   )
 }
