@@ -1,14 +1,19 @@
+'use client'
+import { use } from 'react'
 import { notFound } from 'next/navigation'
 import { sitesData } from '@/library/sites'
 import PageHeader from '../components/PageHeader'
+import Divider from '../components/Divider'
 
 interface Props {
-  params: {
+  params: Promise<{
     slug: string
-  }
+  }>
 }
 
-export default async function SitePage({ params: { slug } }: Props) {
+export default function SitePage({ params }: Props) {
+  const { slug } = use(params)
+
   const site = sitesData.find((site) => site.slug === slug)
 
   if (!site) {
@@ -18,13 +23,7 @@ export default async function SitePage({ params: { slug } }: Props) {
   return (
     <>
       <PageHeader title={site.displayName} intro={site.description} />
-      <hr className="my-12 w-full h-px border-0 bg-gradient-to-r from-violet-800/5 via-violet-800/20 to-violet-800/5" />
+      <Divider margin="my-6" />
     </>
   )
-}
-
-export async function generateStaticParams() {
-  return sitesData.map((site) => ({
-    slug: site.slug,
-  }))
 }
