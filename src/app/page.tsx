@@ -3,8 +3,8 @@ import PageHeader from './components/PageHeader'
 export default function Home() {
   return (
     <PageHeader
-      title="Welcome to Dan Edwards Analytics"
-      intro="Select a site from the menu to begin."
+      title="Dan's Analytics"
+      intro="Welcome to my privacy-first analytics site"
     />
   )
 }
