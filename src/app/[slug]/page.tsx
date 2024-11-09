@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 import { sitesData } from '@/library/sites'
 import PageHeader from '../components/PageHeader'
 import Divider from '../components/Divider'
+import PlacehoderContent from '../components/PlaceholderContent'
 
 interface Props {
   params: Promise<{
@@ -24,6 +25,7 @@ export default function SitePage({ params }: Props) {
     <>
       <PageHeader title={site.displayName} intro={site.description} />
       <Divider margin="my-6" />
+      <PlacehoderContent />
     </>
   )
 }
