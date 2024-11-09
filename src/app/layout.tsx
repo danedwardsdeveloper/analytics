@@ -23,11 +23,11 @@ export default function RootLayout({
       lang="en-GB"
       suppressHydrationWarning
       className={clsx(
-        'h-screen overflow-y-auto md:overflow-hidden overflow-x-hidden',
+        'h-screen overflow-hidden overflow-x-hidden',
         'bg-gradient-to-tr from-sky-50 via-indigo-100 to-cyan-100'
       )}
     >
-      <body className="h-screen overflow-y-auto md:overflow-hidden">
+      <body className="h-screen overflow-hidden">
         <AppProvider>
           <div
             className={clsx(
