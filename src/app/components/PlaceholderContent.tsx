@@ -1,5 +1,5 @@
 export default function PlacehoderContent() {
-  return [1, 2, 3, 4, 5, 6].map((item) => (
+  return [1, 2, 3, 4].map((item) => (
     <p
       key={item}
       className="text-slate-600 my-6"
