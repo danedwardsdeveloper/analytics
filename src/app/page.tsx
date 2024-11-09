@@ -1,18 +1,19 @@
 'use client'
+import { useEffect } from 'react'
 import PageHeader from './components/PageHeader'
 import PlacehoderContent from './components/PlaceholderContent'
 import { useApp } from './components/AppProvider'
+import { useRouter } from 'next/navigation'
 
 export default function Home() {
-  const { updateAppState, signedIn } = useApp()
+  const router = useRouter()
+  const { signedIn } = useApp()
 
-  function handleToggle(event: React.MouseEvent) {
-    event.preventDefault()
-    updateAppState({
-      signedIn: !signedIn,
-      message: !signedIn ? null : 'Please sign in',
-    })
-  }
+  useEffect(() => {
+    if (!signedIn) {
+      router.push('/sign-in')
+    }
+  }, [signedIn, router])
 
   return (
     <>
@@ -20,12 +21,6 @@ export default function Home() {
         title="Dan's Analytics"
         intro="Welcome to my privacy-first analytics site"
       />
-      <button
-        onClick={handleToggle}
-        className="px-4 py-2 my-3 bg-blue-500 text-white rounded hover:bg-blue-600"
-      >
-        {signedIn ? 'Sign Out' : 'Sign In'}
-      </button>
       <PlacehoderContent />
     </>
   )
