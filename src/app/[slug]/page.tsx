@@ -15,7 +15,7 @@ interface Props {
 export default function SitePage({ params }: Props) {
   const { slug } = use(params)
 
-  const site = sitesData.find((site) => site.slug === slug)
+  const site = sitesData.find((siteItem) => siteItem.slug === slug)
 
   if (!site) {
     notFound()
