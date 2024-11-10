@@ -4,7 +4,7 @@ export const baseStyles =
   'px-2.5 py-2 font-medium shrink-0 rounded block transition-colors duration-200 text-left'
 
 export const mobileButtonStyles =
-  'inline-block cursor-pointer border border-blue-200'
+  'px-2.5 py-1 inline-block cursor-pointer border border-blue-200'
 
 export const colourStyles = {
   active: 'bg-blue-500/15',
