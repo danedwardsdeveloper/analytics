@@ -1,49 +1,73 @@
 'use client'
-import clsx from 'clsx'
-
+import { useEffect, useRef, ElementRef, useState } from 'react'
+import MobileMenuLayout from './layout'
 import { useApp } from '../../AppProvider'
-import { MenuButton, HomeButton } from './MenuButtons'
-import Divider from '../../Divider'
-import TimeFilters from '../DateRangeButtons'
-import SiteLinks from '../SiteLinks'
 
 export default function MobileMenu() {
-  const { menuOpen } = useApp()
+  const { signedIn } = useApp()
+  const headerRef = useRef<ElementRef<'div'>>(null)
+  const lastScrollTop = useRef(0)
+  const [isVisible, setIsVisible] = useState(true)
+
+  useEffect(() => {
+    if (!signedIn) return
+    const mainContent = document.querySelector('[role="main"]') as HTMLElement
+    if (!mainContent) {
+      return
+    }
+
+    function updateHeaderStyles() {
+      if (!headerRef.current) {
+        return
+      }
+
+      const { height } = headerRef.current.getBoundingClientRect()
+      const scrollTop = mainContent.scrollTop
+
+      if (scrollTop > lastScrollTop.current && scrollTop > height) {
+        document.documentElement.style.setProperty(
+          '--mobile-header-transform',
+          'translateY(-100%)'
+        )
+        setIsVisible(false)
+      } else {
+        document.documentElement.style.setProperty(
+          '--mobile-header-transform',
+          'translateY(0)'
+        )
+        setIsVisible(true)
+      }
+
+      lastScrollTop.current = scrollTop
+    }
+
+    const handleScroll = () => {
+      updateHeaderStyles()
+    }
+
+    updateHeaderStyles()
+
+    mainContent.addEventListener('scroll', handleScroll, { passive: true })
+    window.addEventListener('resize', handleScroll)
+
+    return () => {
+      mainContent.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('resize', handleScroll)
+    }
+  }, [signedIn])
+
   return (
-    <div>
-      <div
-        className={clsx(
-          ' w-full flex flex-col',
-          'justify-end items-center',
-          'border-b border-blue-200',
-          'bg-blue-100/70',
-          'px-4'
-        )}
-      >
-        <div className="flex justify-between w-full my-4">
-          <HomeButton />
-          <MenuButton />
-        </div>
-        <div
-          className={clsx(
-            'w-full overflow-hidden transition-all duration-700 ease-in-out',
-            menuOpen ? 'max-h-screen' : 'max-h-0'
-          )}
-        >
-          <div className="pb-4 flex flex-col justify-start w-full">
-            <Divider margin="mt-0 mb-4" />
-            <nav
-              className="space-y-4"
-              aria-label="Site Navigation"
-              role="navigation"
-            >
-              <SiteLinks gap="gap-y-4" />
-            </nav>
-            <Divider margin="my-4" />
-            <TimeFilters />
-          </div>
-        </div>
-      </div>
-    </div>
+    <header
+      ref={headerRef}
+      className="fixed top-0 left-0 right-0 z-0 w-full transition-transform duration-500"
+      style={{
+        transform: 'var(--mobile-header-transform, translateY(0))',
+      }}
+      aria-hidden={!isVisible}
+      role="banner"
+      aria-label="Mobile navigation menu"
+    >
+      <MobileMenuLayout />
+    </header>
   )
 }
