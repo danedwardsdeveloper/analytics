@@ -1,27 +1,35 @@
 'use client'
-import { useEffect } from 'react'
+import clsx from 'clsx'
 import PageHeader from './components/PageHeader'
 import PlacehoderContent from './components/PlaceholderContent'
 import { useApp } from './components/AppProvider'
-import { useRouter } from 'next/navigation'
+import SignInForm from './components/signInForm'
 
 export default function Home() {
-  const router = useRouter()
   const { signedIn } = useApp()
 
-  useEffect(() => {
-    if (!signedIn) {
-      router.push('/sign-in')
-    }
-  }, [signedIn, router])
-
   return (
-    <>
-      <PageHeader
-        title="Dan's Analytics"
-        intro="Welcome to my privacy-first analytics site"
-      />
-      <PlacehoderContent />
-    </>
+    <div
+      role="main"
+      className={clsx(
+        'w-full flex-1 bg-white bg-opacity-75',
+        'md:border border-blue-500/30 md:rounded-lg',
+        'pt-12 px-12 pb-60',
+        signedIn && 'overflow-y-auto'
+      )}
+    >
+      {signedIn ? (
+        <>
+          <div data-header-offset className="md:hidden h-[70px]" />
+          <PageHeader
+            title="Dan's Analytics"
+            intro="Welcome to my privacy-first analytics site"
+          />
+          <PlacehoderContent />
+        </>
+      ) : (
+        <SignInForm />
+      )}
+    </div>
   )
 }
