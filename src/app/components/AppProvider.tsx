@@ -1,71 +1,36 @@
 'use client'
-import { apiRoutes } from '@/library/apiRoutes'
-import {
-  createContext,
-  ReactNode,
-  useContext,
-  useEffect,
-  useState,
-} from 'react'
+import { createContext, ReactNode, useContext, useState } from 'react'
 
-export interface AppState {
-  message: string | null
+export type TimeRange = '30days' | 'alltime'
+
+interface AppContextValue {
   signedIn: boolean
+  setSignedIn: (value: boolean) => void
+  message: string | null
+  setMessage: (value: string | null) => void
+  timeRange: TimeRange
+  setTimeRange: (value: TimeRange) => void
+  menuOpen: boolean
+  setMenuOpen: (value: boolean) => void
 }
 
-interface AppContextType extends AppState {
-  isLoading: boolean
-  // eslint-disable-next-line no-unused-vars
-  updateAppState: (updates: Partial<AppState>) => void
-}
-
-const AppContext = createContext<AppContextType | undefined>(undefined)
-
-export async function validateToken() {
-  try {
-    const response = await fetch(apiRoutes.validateToken, {
-      method: 'GET',
-      credentials: 'include',
-    })
-    if (!response.ok) {
-      return null
-    }
-    return await response.json()
-  } catch (error) {
-    console.error('Token validation error:', error)
-    return null
-  }
-}
+const AppContext = createContext<AppContextValue | undefined>(undefined)
 
 export function AppProvider({ children }: { children: ReactNode }) {
-  const [isLoading, setIsLoading] = useState(true)
-  const [appState, setAppState] = useState<AppState>({
-    message: null,
-    signedIn: false,
-  })
+  const [signedIn, setSignedIn] = useState(true)
+  const [message, setMessage] = useState<string | null>(null)
+  const [timeRange, setTimeRange] = useState<TimeRange>('30days')
+  const [menuOpen, setMenuOpen] = useState(false)
 
-  useEffect(() => {
-    const initializeApp = async () => {
-      const validationResult = await validateToken()
-      const updates: Partial<AppState> = {
-        signedIn: !!validationResult,
-        message: validationResult ? null : 'Please sign in',
-      }
-      setAppState((prevState) => ({ ...prevState, ...updates }))
-      setIsLoading(false)
-    }
-
-    initializeApp()
-  }, [])
-
-  const updateAppState = (updates: Partial<AppState>) => {
-    setAppState((prevState) => ({ ...prevState, ...updates }))
-  }
-
-  const contextValue: AppContextType = {
-    ...appState,
-    isLoading,
-    updateAppState,
+  const contextValue = {
+    signedIn,
+    setSignedIn,
+    message,
+    setMessage,
+    timeRange,
+    setTimeRange,
+    menuOpen,
+    setMenuOpen,
   }
 
   return (
