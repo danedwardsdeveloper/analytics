@@ -1,8 +1,8 @@
 import type { Metadata, Viewport } from 'next'
 import clsx from 'clsx'
 import './styles.tailwind.css'
-import MenuBar from './components/menuBar'
 import { AppProvider } from './components/AppProvider'
+import MenuBar from './components/menuBar'
 
 export const metadata: Metadata = {
   title: `Dan's Analytics`,
@@ -31,22 +31,12 @@ export default function RootLayout({
         <AppProvider>
           <div
             className={clsx(
-              'w-full max-w-[94rem] mx-auto flex h-screen flex-col md:flex-row md:gap-6',
+              'w-full max-w-[94rem] mx-auto flex h-screen flex-col md:flex-row overflow-hidden md:gap-6',
               'md:py-6 md:px-8'
             )}
           >
             <MenuBar />
-            <div
-              role="main"
-              className={clsx(
-                'w-full flex-1 bg-white bg-opacity-75',
-                'md:border border-blue-500/30 md:rounded-lg',
-                'py-8 px-6',
-                'overflow-y-auto'
-              )}
-            >
-              {children}
-            </div>
+            {children}
           </div>
         </AppProvider>
       </body>
