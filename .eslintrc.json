@@ -24,7 +24,9 @@
           "id",
           "type",
           "title",
-          "data"
+          "data",
+          "scrollY",
+          "top"
         ],
         "ignoreTypeValueShadow": true,
         "ignoreFunctionTypeParameterNameValueShadow": true
