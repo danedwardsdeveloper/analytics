@@ -23,11 +23,11 @@ export default function RootLayout({
       lang="en-GB"
       suppressHydrationWarning
       className={clsx(
-        'h-screen overflow-hidden overflow-x-hidden',
+        'h-screen overflow-hidden',
         'bg-gradient-to-tr from-sky-50 via-indigo-100 to-cyan-100'
       )}
     >
-      <body className="h-screen overflow-hidden">
+      <body className="overflow-hidden">
         <AppProvider>
           <div
             className={clsx(
@@ -37,9 +37,10 @@ export default function RootLayout({
           >
             <MenuBar />
             <div
+              role="main"
               className={clsx(
                 'w-full flex-1 bg-white bg-opacity-75',
-                'md:border border-blue-500/30 rounded-lg',
+                'md:border border-blue-500/30 md:rounded-lg',
                 'py-8 px-6',
                 'overflow-y-auto'
               )}
