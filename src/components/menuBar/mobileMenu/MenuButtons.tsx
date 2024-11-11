@@ -1,8 +1,9 @@
 'use client'
-import { useRef, useEffect } from 'react'
+
+import clsx from 'clsx'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import clsx from 'clsx'
+import { useEffect, useRef } from 'react'
 
 import { useApp } from '../../AppProvider'
 import {
@@ -50,7 +51,7 @@ export function MenuButton() {
       if (!menuOpen || !containerRef.current) return
 
       const focusableElements = containerRef.current.querySelectorAll(
-        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
       )
       const firstFocusable = focusableElements[0] as HTMLElement
       const lastFocusable = focusableElements[
@@ -100,7 +101,7 @@ export function MenuButton() {
         mobileButtonStyles,
         sizeStyles['base'],
         colourStyles.text['base'],
-        menuOpen ? colourStyles.active : colourStyles.inactive
+        menuOpen ? colourStyles.active : colourStyles.inactive,
       )}
     >{`Menu`}</button>
   )
@@ -117,7 +118,7 @@ export function HomeButton() {
         mobileButtonStyles,
         sizeStyles['base'],
         colourStyles.text['base'],
-        isActive ? colourStyles.active : colourStyles.inactive
+        isActive ? colourStyles.active : colourStyles.inactive,
       )}
     >
       {`Home`}

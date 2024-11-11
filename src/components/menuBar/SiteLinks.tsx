@@ -1,7 +1,9 @@
 import clsx from 'clsx'
 import Link from 'next/link'
-import { sitesData } from '@/library/sites'
 import { usePathname } from 'next/navigation'
+
+import { sitesData } from '@/library/sites'
+
 import { baseStyles, colourStyles, sizeStyles } from './styles'
 
 export default function SiteLinks({ gap = 'gap-y-1' }: { gap?: string }) {
@@ -20,7 +22,7 @@ export default function SiteLinks({ gap = 'gap-y-1' }: { gap?: string }) {
                 baseStyles,
                 sizeStyles['base'],
                 colourStyles.text['base'],
-                isActive ? colourStyles.active : colourStyles.inactive
+                isActive ? colourStyles.active : colourStyles.inactive,
               )}
             >
               {site.displayName}

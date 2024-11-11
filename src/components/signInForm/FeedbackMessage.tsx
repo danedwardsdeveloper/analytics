@@ -1,5 +1,6 @@
-import { Message, MessageColours } from '@/app/components/AppProvider'
 import clsx from 'clsx'
+
+import { Message, MessageColours } from '@/components/AppProvider'
 
 interface Props {
   message?: Message
@@ -30,7 +31,7 @@ export default function FeedbackMessage({
     <div
       className={clsx(
         'flex w-full justify-center items-center min-h-10 border rounded',
-        message ? [text, bg, border] : 'opacity-0'
+        message ? [text, bg, border] : 'opacity-0',
       )}
     >
       <span>{message}</span>

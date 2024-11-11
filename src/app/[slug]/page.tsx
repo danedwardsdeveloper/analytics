@@ -1,12 +1,31 @@
 'use client'
-import { useEffect, use } from 'react'
+
+import { useApp } from '../../components/AppProvider'
+import Divider from '../../components/Divider'
+import PageHeader from '../../components/PageHeader'
+import PlacehoderContent from '../../components/PlaceholderContent'
+
 import { useRouter } from 'next/navigation'
+import { use, useEffect } from 'react'
+
 import { sitesData } from '@/library/sites'
-import PageHeader from '../components/PageHeader'
-import { useApp } from '../components/AppProvider'
+
 import GridList from './components/GridList'
-import Divider from '../components/Divider'
-const siteData = [
+
+interface SiteData {
+  title:
+    | 'Browsers'
+    | 'Devices'
+    | 'Page views'
+    | 'Countries'
+    | 'Referrals'
+    | 'Link clicks'
+    | 'Pre-saves'
+  unit?: string
+  items: { name: string; value: number }[]
+}
+
+const siteData: SiteData[] = [
   {
     title: 'Browsers',
     unit: '%',
@@ -27,7 +46,7 @@ const siteData = [
     ],
   },
   {
-    title: 'Pages',
+    title: 'Page views',
     items: [
       { name: 'Home', value: 2456 },
       { name: '/about', value: 1123 },

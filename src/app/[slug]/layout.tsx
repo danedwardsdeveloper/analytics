@@ -14,7 +14,7 @@ export default function SiteAnalyticsLayout({
         'md:border border-blue-500/30 md:rounded-lg',
         'pt-8 px-6 ',
         'md:pt-12 md:px-12 pb-60',
-        'overflow-y-auto'
+        'overflow-y-auto',
       )}
     >
       <div data-header-offset className="md:hidden h-[70px]" />

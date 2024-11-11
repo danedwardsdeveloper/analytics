@@ -1,5 +1,7 @@
 'use client'
+
 import clsx from 'clsx'
+
 import { useApp } from '../AppProvider'
 import { baseStyles, colourStyles, sizeStyles } from './styles'
 
@@ -26,7 +28,7 @@ export default function DateRangeButtons() {
         className={clsx(
           baseStyles,
           sizeStyles.sm,
-          days30 ? colourStyles.active : colourStyles.inactive
+          days30 ? colourStyles.active : colourStyles.inactive,
         )}
         tabIndex={0}
       >{`Last 30 days`}</button>
@@ -40,7 +42,7 @@ export default function DateRangeButtons() {
         className={clsx(
           baseStyles,
           sizeStyles.sm,
-          allTime ? colourStyles.active : colourStyles.inactive
+          allTime ? colourStyles.active : colourStyles.inactive,
         )}
         tabIndex={0}
       >{`All time`}</button>

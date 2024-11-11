@@ -1,10 +1,10 @@
 import clsx from 'clsx'
 
-import { MenuButton, HomeButton } from './MenuButtons'
+import { useApp } from '../../AppProvider'
 import Divider from '../../Divider'
 import TimeFilters from '../DateRangeButtons'
 import SiteLinks from '../SiteLinks'
-import { useApp } from '../../AppProvider'
+import { HomeButton, MenuButton } from './MenuButtons'
 
 export default function MobileMenuLayout() {
   const { menuOpen } = useApp()
@@ -17,7 +17,7 @@ export default function MobileMenuLayout() {
         'justify-end items-center',
         'border-b border-blue-200',
         'bg-gradient-to-r from-sky-50 via-indigo-100 to-cyan-100',
-        'px-4'
+        'px-4',
       )}
     >
       <div className="flex justify-between w-full my-4">
@@ -27,7 +27,7 @@ export default function MobileMenuLayout() {
       <div
         className={clsx(
           'w-full overflow-hidden transition-all duration-700 ease-in-out',
-          menuOpen ? 'max-h-screen' : 'max-h-0'
+          menuOpen ? 'max-h-screen' : 'max-h-0',
         )}
       >
         <div className="pb-4 flex flex-col justify-start w-full">

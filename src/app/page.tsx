@@ -1,9 +1,11 @@
 'use client'
+
+import { useApp } from '../components/AppProvider'
+import PageHeader from '../components/PageHeader'
+import PlacehoderContent from '../components/PlaceholderContent'
+import SignInForm from '../components/signInForm'
+
 import clsx from 'clsx'
-import PageHeader from './components/PageHeader'
-import PlacehoderContent from './components/PlaceholderContent'
-import { useApp } from './components/AppProvider'
-import SignInForm from './components/signInForm'
 
 export default function Home() {
   const { signedIn } = useApp()
@@ -15,7 +17,7 @@ export default function Home() {
         'w-full flex-1 bg-white bg-opacity-75',
         'md:border border-blue-500/30 md:rounded-lg',
         'pt-12 px-12 pb-60',
-        signedIn && 'overflow-y-auto'
+        signedIn && 'overflow-y-auto',
       )}
     >
       {signedIn ? (

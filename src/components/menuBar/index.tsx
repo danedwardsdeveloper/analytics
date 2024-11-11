@@ -1,7 +1,8 @@
 'use client'
+
 import { useApp } from '../AppProvider'
-import MobileMenu from './mobileMenu'
 import DesktopMenu from './desktopMenu'
+import MobileMenu from './mobileMenu'
 
 export default function MenuBar() {
   const { signedIn } = useApp()

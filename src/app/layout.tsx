@@ -1,8 +1,9 @@
-import type { Metadata, Viewport } from 'next'
-import clsx from 'clsx'
+import { AppProvider } from '../components/AppProvider'
+import MenuBar from '../components/menuBar'
 import './styles.tailwind.css'
-import { AppProvider } from './components/AppProvider'
-import MenuBar from './components/menuBar'
+
+import clsx from 'clsx'
+import type { Metadata, Viewport } from 'next'
 
 export const metadata: Metadata = {
   title: `Dan's Analytics`,
@@ -24,7 +25,7 @@ export default function RootLayout({
       suppressHydrationWarning
       className={clsx(
         'h-screen overflow-hidden',
-        'bg-gradient-to-tr from-sky-50 via-indigo-100 to-cyan-100'
+        'bg-gradient-to-tr from-sky-50 via-indigo-100 to-cyan-100',
       )}
     >
       <body className="overflow-hidden">
@@ -32,7 +33,7 @@ export default function RootLayout({
           <div
             className={clsx(
               'w-full max-w-[94rem] mx-auto flex h-screen flex-col md:flex-row overflow-hidden md:gap-6',
-              'md:py-6 md:px-8'
+              'md:py-6 md:px-8',
             )}
           >
             <MenuBar />

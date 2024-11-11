@@ -1,7 +1,9 @@
 'use client'
-import { useEffect, useRef, ElementRef, useState } from 'react'
-import MobileMenuLayout from './layout'
+
+import { ElementRef, useEffect, useRef, useState } from 'react'
+
 import { useApp } from '../../AppProvider'
+import MobileMenuLayout from './layout'
 
 export default function MobileMenu() {
   const { signedIn } = useApp()
@@ -27,13 +29,13 @@ export default function MobileMenu() {
       if (scrollTop > lastScrollTop.current && scrollTop > height) {
         document.documentElement.style.setProperty(
           '--mobile-header-transform',
-          'translateY(-100%)'
+          'translateY(-100%)',
         )
         setIsVisible(false)
       } else {
         document.documentElement.style.setProperty(
           '--mobile-header-transform',
-          'translateY(0)'
+          'translateY(0)',
         )
         setIsVisible(true)
       }

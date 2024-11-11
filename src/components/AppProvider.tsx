@@ -1,4 +1,5 @@
 'use client'
+
 import { createContext, ReactNode, useContext, useState } from 'react'
 
 export type TimeRange = '30days' | 'alltime'

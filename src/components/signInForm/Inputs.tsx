@@ -1,6 +1,7 @@
 'use client'
-import { useState } from 'react'
+
 import clsx from 'clsx'
+import { useState } from 'react'
 
 import EyeIcon from './EyeIcon'
 
@@ -47,7 +48,7 @@ export function Input({
         data-testid={dataTestID}
         className={clsx(
           'w-2/3 border border-gray-400 bg-gray-100 p-2 rounded-md',
-          focusStyles
+          focusStyles,
         )}
       />
     </div>
@@ -95,7 +96,7 @@ export function PasswordInput({
           data-testid={dataTestID}
           className={clsx(
             'w-full border border-gray-400 bg-gray-100 p-2 rounded-md pr-10 font-mono tracking-wider ',
-            focusStyles
+            focusStyles,
           )}
           spellCheck="false"
           autoCapitalize="off"

@@ -6,8 +6,9 @@
     "^use client$",
     "^(?!(?:./|../|@/))",
     "^@/library/(.*)$",
-    ".*components.*$|^(?!.*components)(?:[../]|[./])",
-    ".*(?:image|public).*$"
+    ".*components.*$|^@/components/(.*)$",
+    "^(?!.*(components|public|image))(?:[../]|[./]|@/)",
+    ".*(public|image).*$"
   ],
   "importOrderSeparation": true,
   "importOrderSortSpecifiers": true,
