@@ -18,6 +18,6 @@ primary_region = 'lhr'
   cpus = 1
 
 [[restart]]
-  policy = "on-failure"
+  policy = 'on-failure'
   retries = 1
-  processes = ["app"]
+  processes = ['app']
