@@ -1,0 +1,17 @@
+{
+  "singleQuote": true,
+  "semi": false,
+  "plugins": ["@trivago/prettier-plugin-sort-imports"],
+  "importOrder": [
+    "^use client$",
+    "^(?!(?:./|../|@/))",
+    "^@/library/(.*)$",
+    ".*components.*$|^(?!.*components)(?:[../]|[./])",
+    ".*(?:image|public).*$"
+  ],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true,
+  "importOrderGroupNamespaceSpecifiers": true,
+  "importOrderCaseInsensitive": true,
+  "importOrderParserPlugins": ["typescript", "jsx", "decorators-legacy"]
+}
