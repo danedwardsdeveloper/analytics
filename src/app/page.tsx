@@ -1,11 +1,11 @@
 'use client'
 
+import clsx from 'clsx'
+
 import { useApp } from '../components/AppProvider'
 import PageHeader from '../components/PageHeader'
 import PlacehoderContent from '../components/PlaceholderContent'
 import SignInForm from '../components/signInForm'
-
-import clsx from 'clsx'
 
 export default function Home() {
   const { signedIn } = useApp()
