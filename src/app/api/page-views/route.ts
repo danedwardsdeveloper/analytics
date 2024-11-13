@@ -18,8 +18,8 @@ export async function GET(request: NextRequest) {
       )
     }
 
-    const data = await getPageViews(database, timeRange)
-    return NextResponse.json(data)
+    const pageViewsData = await getPageViews(database, timeRange)
+    return NextResponse.json(pageViewsData)
   } catch (error) {
     console.error('API error:', error)
     return NextResponse.json(
