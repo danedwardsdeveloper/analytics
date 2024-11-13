@@ -61,7 +61,7 @@ export default function MobileMenu() {
   return (
     <header
       ref={headerRef}
-      className="fixed top-0 left-0 right-0 z-0 w-full transition-transform duration-500"
+      className="fixed top-0 left-0 right-0 z-50 w-full transition-transform duration-500"
       style={{
         transform: 'var(--mobile-header-transform, translateY(0))',
       }}
