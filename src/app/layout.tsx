@@ -1,9 +1,11 @@
-import { AppProvider } from '../components/AppProvider'
-import MenuBar from '../components/menuBar'
-import './styles.tailwind.css'
-
 import clsx from 'clsx'
 import type { Metadata, Viewport } from 'next'
+
+import { AppProvider } from '../components/AppProvider'
+import MenuBar from '../components/menuBar'
+import { AuthStateHandler } from '@/components/AuthHandler'
+
+import './styles.tailwind.css'
 
 export const metadata: Metadata = {
   title: `Dan's Analytics`,
@@ -30,6 +32,7 @@ export default function RootLayout({
     >
       <body className="overflow-hidden">
         <AppProvider>
+          <AuthStateHandler />
           <div
             className={clsx(
               'w-full max-w-[94rem] mx-auto flex h-screen flex-col md:flex-row overflow-hidden md:gap-6',
