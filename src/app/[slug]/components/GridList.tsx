@@ -1,15 +1,15 @@
-interface Item {
+interface GridListItem {
   name: string
   value: number
 }
 
-interface Props {
+export interface GridListProps {
   title: string
-  items: Item[]
+  items: GridListItem[]
   unit?: string
 }
 
-export default function GridList({ title, items, unit }: Props) {
+export default function GridList({ title, items, unit }: GridListProps) {
   return (
     <div className="flex flex-col">
       <h2 className="text-xl font-semibold text-gray-900 mb-4">{title}</h2>
