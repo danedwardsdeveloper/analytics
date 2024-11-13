@@ -1,7 +1,11 @@
 import { isProduction } from './environment'
 
+const oneMonthInSeconds = 30 * 24 * 60 * 60
+
+export const cookieName = 'token'
+
 type CookieOptions = {
-  name: string
+  name: 'token'
   value: string
   httpOnly: boolean
   secure: boolean
@@ -17,7 +21,7 @@ export function createCookieOptions(tokenValue: string): CookieOptions {
     httpOnly: true,
     secure: isProduction,
     sameSite: 'strict',
-    maxAge: 60 * 60,
+    maxAge: oneMonthInSeconds,
     path: '/',
   }
 }
@@ -30,6 +34,6 @@ export interface Token {
 export function generateTokenPayload(userId: string): Token {
   return {
     sub: userId,
-    exp: Math.floor(Date.now() / 1000) + 60 * 60,
+    exp: Math.floor(Date.now() / 1000) + oneMonthInSeconds,
   }
 }
