@@ -1,27 +1,27 @@
-export type CountryCodes = 'GB' | 'FR' | 'US'
+import { CountryKey } from '@/app/[slug]/siteAnalyticsLayout/countriesList/data'
 
 export type PageViewsData = Array<{
   name: string
   value: number
 }>
 
-type CountriesData = Array<{
-  countryCode: CountryCodes
+export type CountriesData = Array<{
+  countryKey: CountryKey
   percentage: number
 }>
 
 type ReferralsData = Array<{
-  source: string
+  name: string
   value: number
 }>
 
-interface DevicesData {
+export interface DevicesData {
   desktopPercentage: number
   tabletPercentage: number
   mobilePercentage: number
 }
 
-interface BrowsersData {
+export interface BrowsersData {
   chromePercentage: number
   chromeMobilePercentage: number
   firefoxPercentage: number
