@@ -17,6 +17,8 @@ interface AppContextValue {
   setTimeRange: (value: TimeRange) => void
   menuOpen: boolean
   setMenuOpen: (value: boolean) => void
+  isLoading: boolean
+  setIsLoading: (value: boolean) => void
 }
 
 const AppContext = createContext<AppContextValue | undefined>(undefined)
@@ -27,6 +29,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [messageColour, setMessageColour] = useState<MessageColours>('gray')
   const [timeRange, setTimeRange] = useState<TimeRange>('30days')
   const [menuOpen, setMenuOpen] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   const contextValue = {
     signedIn,
@@ -39,6 +42,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setTimeRange,
     menuOpen,
     setMenuOpen,
+    isLoading,
+    setIsLoading,
   }
 
   return (
