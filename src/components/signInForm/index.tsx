@@ -1,17 +1,22 @@
 'use client'
 
+import { useState } from 'react'
+
+import { apiRoutes } from '@/library/apiRoutes'
+
 import { useApp } from '../AppProvider'
 import FeedbackMessage from './FeedbackMessage'
 import { Input, PasswordInput } from './Inputs'
 import { Button } from './SubmitButton'
 
-function handleSubmit() {
-  return
-}
-
 export default function SignInForm() {
+  const [email, setEmail] = useState('danedwardscreative@gmail.com')
+  const [password, setPassword] = useState(
+    process.env.NEXT_PUBLIC_PASSWORD || '',
+  )
+
   const {
-    signedIn,
+    setIsLoading,
     setSignedIn,
     message,
     setMessage,
@@ -19,11 +24,42 @@ export default function SignInForm() {
     setMessageColour,
   } = useApp()
 
-  function handleToggle(event: React.MouseEvent) {
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    setSignedIn(!signedIn)
-    setMessageColour(signedIn ? 'green' : 'red')
-    setMessage(signedIn ? 'Please sign in' : 'Already signed in')
+    setIsLoading(true)
+    setMessage('')
+
+    try {
+      const response = await fetch(apiRoutes.signIn, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      })
+
+      const data = await response.json()
+
+      if (response.ok) {
+        setSignedIn(true)
+        setMessage('Successfully signed in!')
+        setMessageColour('green')
+      } else {
+        setSignedIn(false)
+        setMessage(data.error || 'Sign in failed')
+        setMessageColour('red')
+        console.log('Sign in failed:', data)
+      }
+    } catch {
+      setSignedIn(false)
+      setMessage('An error occurred while signing in')
+      setMessageColour('red')
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -36,8 +72,8 @@ export default function SignInForm() {
           label="Email"
           name="email"
           type="email"
-          value={''}
-          onChange={() => null}
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
         />
         <PasswordInput
           autoComplete="current-password"
@@ -45,17 +81,16 @@ export default function SignInForm() {
           id="password"
           label="Password"
           name="password"
-          value={''}
-          onChange={() => null}
+          value={password}
+          onChange={(event) => setPassword(event.target.value)}
         />
         <FeedbackMessage message={message} messageColour={messageColour} />
         <Button
           dataTestID="sign-in-button"
-          disabled={false}
-          text={signedIn ? 'Sign Out' : 'Sign In'}
+          disabled={!email || !password}
+          text="Sign In"
           type="submit"
           variant={'primary'}
-          onClick={handleToggle}
         />
       </form>
     </div>
