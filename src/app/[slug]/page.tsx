@@ -1,79 +1,20 @@
 'use client'
 
+import { useRouter } from 'next/navigation'
+import { use, useEffect, useState } from 'react'
+
+import { PageViewsData } from '@/library/analyticsData'
+import { DatabaseNames } from '@/library/dbConfig'
+import { sitesData } from '@/library/sites'
+
 import { useApp } from '../../components/AppProvider'
 import Divider from '../../components/Divider'
 import PageHeader from '../../components/PageHeader'
-import PlacehoderContent from '../../components/PlaceholderContent'
-
-import { useRouter } from 'next/navigation'
-import { use, useEffect } from 'react'
-
-import { sitesData } from '@/library/sites'
-
+import DataCards from './components/DataCards'
 import GridList from './components/GridList'
+import HardcodedDataWarning from './components/HardcodedDataWarning'
 
-interface SiteData {
-  title:
-    | 'Browsers'
-    | 'Devices'
-    | 'Page views'
-    | 'Countries'
-    | 'Referrals'
-    | 'Link clicks'
-    | 'Pre-saves'
-  unit?: string
-  items: { name: string; value: number }[]
-}
-
-const siteData: SiteData[] = [
-  {
-    title: 'Browsers',
-    unit: '%',
-    items: [
-      { name: 'Chrome', value: 64 },
-      { name: 'Chrome Mobile', value: 16 },
-      { name: 'Microsoft Edge', value: 10 },
-      { name: 'Firefox', value: 8 },
-    ],
-  },
-  {
-    title: 'Devices',
-    unit: '%',
-    items: [
-      { name: 'Mobile', value: 8 },
-      { name: 'Tablet', value: 0 },
-      { name: 'Desktop', value: 92 },
-    ],
-  },
-  {
-    title: 'Page views',
-    items: [
-      { name: 'Home', value: 2456 },
-      { name: '/about', value: 1123 },
-      { name: '/contact', value: 864 },
-      { name: '/newsletter', value: 542 },
-    ],
-  },
-  {
-    title: 'Countries',
-    unit: '%',
-    items: [
-      { name: 'United Kingdom', value: 43 },
-      { name: 'Germany', value: 18 },
-      { name: 'Brazil', value: 14 },
-      { name: 'United States', value: 13 },
-      { name: 'Russian Federation', value: 10 },
-    ],
-  },
-  {
-    title: 'Referrals',
-    items: [
-      { name: 'Direct', value: 1842 },
-      { name: 'Google', value: 943 },
-      { name: 'Duck Duck Go', value: 253 },
-    ],
-  },
-]
+const USE_DATABASE = true
 
 interface Props {
   params: Promise<{
@@ -83,14 +24,33 @@ interface Props {
 
 export default function SitePage({ params }: Props) {
   const { slug } = use(params)
-  const { signedIn } = useApp()
+  const { signedIn, timeRange } = useApp()
   const router = useRouter()
+  const [pageViewsData, setPageViewsData] = useState<PageViewsData | null>(null)
+  const databaseName = `${slug}-analytics` as DatabaseNames
 
   useEffect(() => {
     if (!signedIn) {
       router.replace('/sign-in')
+      return
     }
-  }, [signedIn, router])
+
+    const fetchPageViews = async () => {
+      try {
+        const response = await fetch(
+          `/api/page-views?db=${databaseName}&timeRange=${timeRange}`,
+        )
+        const data = await response.json()
+        setPageViewsData(data)
+      } catch (error) {
+        console.error('Failed to fetch page views:', error)
+      }
+    }
+
+    if (USE_DATABASE) {
+      fetchPageViews()
+    }
+  }, [signedIn, router, timeRange, databaseName])
 
   if (!signedIn) {
     return null
@@ -102,43 +62,48 @@ export default function SitePage({ params }: Props) {
     return null
   }
 
+  if (USE_DATABASE && !pageViewsData) {
+    return null
+  }
+
+  const formattedPageViewsData: PageViewsData = USE_DATABASE
+    ? {
+        title: 'Page views',
+        totalViews: pageViewsData.totalViews,
+        items: pageViewsData.items.map((page) => ({
+          name: page.name,
+          value: page.value,
+        })),
+      }
+    : {
+        title: 'Page views',
+        totalViews: 47,
+        items: [
+          { name: 'Home', value: 2456 },
+          { name: '/about', value: 1123 },
+          { name: '/contact', value: 864 },
+          { name: '/newsletter', value: 542 },
+        ],
+      }
+
   return (
     <div className="space-y-8">
       <PageHeader title={site.displayName} intro={site.description} />
+      <HardcodedDataWarning display={!USE_DATABASE} />
+      <Divider margin="my-6" />
+      <DataCards
+        titleOne="Page views"
+        valueOne={formattedPageViewsData.totalViews}
+        titleTwo="Sessions"
+        valueTwo={46}
+      />
       <Divider margin="my-6" />
       <div className="flex flex-col divide-y divide-gray-200">
-        <div className="grid grid-cols-1 md:grid-cols-2  pb-8">
-          {siteData.slice(0, 2).map((section) => (
-            <div key={section.title} className="max-w-sm">
-              <GridList
-                title={section.title}
-                items={section.items}
-                unit={section.unit}
-              />
-            </div>
-          ))}
-        </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 py-8">
-          {siteData.slice(2, 4).map((section) => (
-            <div key={section.title} className="max-w-sm">
-              <GridList
-                title={section.title}
-                items={section.items}
-                unit={section.unit}
-              />
-            </div>
-          ))}
-        </div>
-        <div className="pt-8">
-          {siteData.slice(4).map((section) => (
-            <div key={section.title} className="max-w-sm">
-              <GridList
-                title={section.title}
-                items={section.items}
-                unit={section.unit}
-              />
-            </div>
-          ))}
+          <GridList
+            title={formattedPageViewsData.title}
+            items={formattedPageViewsData.items}
+          />
         </div>
       </div>
     </div>
