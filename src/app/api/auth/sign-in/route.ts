@@ -58,7 +58,7 @@ export async function POST(request: NextRequest) {
 
 // Helper to generate password hash for env variable:
 // Use in development only
-export async function generateHash(password: string) {
-  const salt = await bcrypt.genSalt(10)
-  return bcrypt.hash(password, salt)
-}
+// export async function generateHash(password: string) {
+//   const salt = await bcrypt.genSalt(10)
+//   return bcrypt.hash(password, salt)
+// }
