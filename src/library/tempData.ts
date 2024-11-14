@@ -25,12 +25,12 @@ export const tempData: SiteAnalyticsData = {
   ],
   referralsData: [
     {
-      name: 'Direct',
-      value: 218,
-    },
-    {
       name: 'Google',
       value: 384,
+    },
+    {
+      name: 'Direct',
+      value: 218,
     },
     {
       name: 'Duck Duck Go',
@@ -38,9 +38,9 @@ export const tempData: SiteAnalyticsData = {
     },
   ],
   devicesData: {
+    desktopPercentage: 64,
     mobilePercentage: 26,
     tabletPercentage: 10,
-    desktopPercentage: 64,
   },
   browsersData: {
     chromePercentage: 99,
