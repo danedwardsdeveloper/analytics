@@ -1,6 +1,7 @@
 {
   "extends": ["next/core-web-vitals", "next/typescript"],
   "rules": {
+    "no-console": ["error", { "allow": ["warn", "error"] }],
     "@typescript-eslint/no-unused-vars": [
       "warn",
       {
@@ -16,18 +17,12 @@
       {
         "builtinGlobals": true,
         "hoist": "all",
+        // prettier-ignore
         "allow": [
-          "resolve",
-          "reject",
-          "name",
-          "event",
-          "id",
-          "type",
-          "title",
-          "global",
-          "data",
-          "scrollY",
-          "top"
+        "context", "data", "description", "Document", "email", "error", "event", "global", 
+        "id", "Image", "message", "name", "params", "password", "path", "props", "query", 
+        "reject", "req", "Request", "res", "resolve", "Response", "result", "scrollY", 
+        "session", "status", "text", "title", "top", "type", "url", "user", "value"
         ],
         "ignoreTypeValueShadow": true,
         "ignoreFunctionTypeParameterNameValueShadow": true
