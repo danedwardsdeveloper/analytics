@@ -45,7 +45,10 @@ export function DataListItems({ items, unit, percentage }: DataListItemsProps) {
       {items.map((item, index) =>
         percentage ? (
           <>
-            <div key={index} className="flex justify-between items-center h-8">
+            <div
+              key={`${item.name}${item.value}${index}`}
+              className="flex justify-between items-center h-8"
+            >
               <PercentageBar
                 key={`${index}${item.name}${item.value}`}
                 label={item.name}
@@ -54,7 +57,10 @@ export function DataListItems({ items, unit, percentage }: DataListItemsProps) {
             </div>
           </>
         ) : (
-          <div key={index} className="flex justify-between items-center h-8">
+          <div
+            key={`${item.name}${item.value}${index}`}
+            className="flex justify-between items-center h-8"
+          >
             <span className="text-gray-600">{item.name}</span>
             <span className="text-gray-900">
               {item.value.toLocaleString()}
