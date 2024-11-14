@@ -10,10 +10,8 @@ import { Input, PasswordInput } from './Inputs'
 import { Button } from './SubmitButton'
 
 export default function SignInForm() {
-  const [email, setEmail] = useState('danedwardscreative@gmail.com')
-  const [password, setPassword] = useState(
-    process.env.NEXT_PUBLIC_PASSWORD || '',
-  )
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
   const {
     setIsLoading,
