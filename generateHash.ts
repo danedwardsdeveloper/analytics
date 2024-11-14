@@ -1,11 +1,14 @@
+// @ts-nocheck
 import { generateHash } from './src/app/api/auth/sign-in/route'
 
 async function createPasswordHash() {
   const password = ''
   try {
     const hash = await generateHash(password)
+    /* eslint-disable */
     console.log('Your password hash (add this to .env as ADMIN_PASSWORD_HASH):')
     console.log(hash)
+    /* eslint-enable */
   } catch (error) {
     console.error('Error generating hash:', error)
   }
@@ -13,4 +16,4 @@ async function createPasswordHash() {
 
 createPasswordHash()
 
-// pnpm tsx generateHst.ts
+// pnpm tsx generateHash.ts
