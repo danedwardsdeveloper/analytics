@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation'
 import { use, useEffect, useState } from 'react'
 
 import { PageViewsData } from '@/library/analyticsData'
+import { apiRoutes } from '@/library/apiRoutes'
 import { DatabaseNames } from '@/library/dbConfig'
 import { sitesData } from '@/library/sites'
 import { tempData } from '@/library/tempData'
@@ -29,14 +30,15 @@ export default function SitePage({ params }: Props) {
 
   useEffect(() => {
     if (!signedIn) {
-      router.replace('/sign-in')
-      return
+      router.replace('/')
     }
+  }, [signedIn, router])
 
+  useEffect(() => {
     const fetchPageViews = async () => {
       try {
         const response = await fetch(
-          `/api/page-views?db=${databaseName}&timeRange=${timeRange}`,
+          `${apiRoutes.pageViews}?db=${databaseName}&timeRange=${timeRange}`,
         )
         const data = await response.json()
         setPageViewsData(data)
