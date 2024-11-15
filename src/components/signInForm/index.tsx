@@ -49,7 +49,6 @@ export default function SignInForm() {
         setSignedIn(false)
         setMessage(data.error || 'Sign in failed')
         setMessageColour('red')
-        console.log('Sign in failed:', data)
       }
     } catch {
       setSignedIn(false)
