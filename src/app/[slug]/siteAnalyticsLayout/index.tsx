@@ -11,7 +11,11 @@ import PageHeader from '@/components/PageHeader'
 
 import CountriesList from './countriesList'
 import DataCards from './DataCards'
-import { DataListContainer } from './DataList'
+import {
+  DataListContainer,
+  DataListItems,
+  PercentageDataItems,
+} from './DataList'
 import HardcodedDataWarning from './HardcodedDataWarning'
 
 function devicesDataToItems(data: DevicesData) {
@@ -77,20 +81,23 @@ export default function SiteAnalyticsLayout({
         <Divider margin="my-6" />
         <div className="flex flex-col divide-y divide-gray-200">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16 py-8">
-            <DataListContainer title={`Page views`} items={pageViewsData} />
+            <DataListContainer title={`Page views`}>
+              <DataListItems items={pageViewsData} />
+            </DataListContainer>
+
             <CountriesList countriesData={countriesData} />
-            <DataListContainer
-              title={`Devices`}
-              items={devicesDataToItems(devicesData)}
-              unit={`%`}
-              percentage
-            />
-            <DataListContainer
-              title={`Browsers`}
-              items={browsersDataToItems(browsersData)}
-              unit={`%`}
-              percentage
-            />
+
+            <DataListContainer title={`Devices`}>
+              <PercentageDataItems items={devicesDataToItems(devicesData)} />
+            </DataListContainer>
+
+            <DataListContainer title={`Browsers`}>
+              <PercentageDataItems items={browsersDataToItems(browsersData)} />
+            </DataListContainer>
+
+            <DataListContainer title="Referrals">
+              <DataListItems items={referralsData} />
+            </DataListContainer>
           </div>
         </div>
       </div>
