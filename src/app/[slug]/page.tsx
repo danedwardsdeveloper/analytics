@@ -11,7 +11,7 @@ import { tempData } from '@/library/tempData'
 
 import { useApp } from '../../components/AppProvider'
 
-import SiteAnalyticsLayout from './siteAnalyticsLayout'
+import SiteAnalyticsLayout from './layout'
 
 const USE_DATABASE = false
 
