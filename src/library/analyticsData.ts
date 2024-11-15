@@ -1,4 +1,4 @@
-import { CountryKey } from '@/app/[slug]/siteAnalyticsLayout/countriesList/data'
+import { CountryKey } from '@/app/[slug]/components/countriesList/data'
 
 export type PageViewsData = Array<{
   name: string

@@ -1,6 +1,6 @@
 import { CountriesData } from '@/library/analyticsData'
 
-import { DataListContainer } from '../DataList'
+import DataContainer from '../DataContainer'
 import CountryItem from './CountryItem'
 
 export default function CountriesList({
@@ -9,7 +9,7 @@ export default function CountriesList({
   countriesData: CountriesData
 }) {
   return (
-    <DataListContainer title={`Countries`}>
+    <DataContainer title={`Countries`}>
       {countriesData.map((country) => (
         <CountryItem
           key={country.countryKey}
@@ -17,6 +17,6 @@ export default function CountriesList({
           percentage={country.percentage}
         />
       ))}
-    </DataListContainer>
+    </DataContainer>
   )
 }
