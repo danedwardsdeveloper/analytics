@@ -13,37 +13,29 @@ import { DatabaseNames } from '@/library/dbConfig'
 import { sitesData } from '@/library/sites'
 import { tempData } from '@/library/tempData'
 
-import { useApp } from '../../components/AppProvider'
-import CountriesList from './components/countriesList'
-import DataCards from './components/DataCards'
-import DataContainer from './components/DataContainer'
-import HardcodedDataWarning from './components/HardcodedDataWarning'
-import PercentageDataList from './components/PercentageDataList'
-import PlainDataList from './components/PlainDataList'
+import { useApp } from '@/components/AppProvider'
+import CountriesList from '@/components/countriesList'
+import DataCards from '@/components/DataCards'
+import DataContainer from '@/components/DataContainer'
 import Divider from '@/components/Divider'
+import HardcodedDataWarning from '@/components/HardcodedDataWarning'
+import {
+  ChromeDesktopIcon,
+  ChromeMobileIcon,
+  EdgeIcon,
+  FirefoxIcon,
+  SafariIcon,
+} from '@/components/icons/BrowserIcons'
+import {
+  DesktopIcon,
+  MobileIcon,
+  TabletIcon,
+} from '@/components/icons/DeviceIcons'
 import PageHeader from '@/components/PageHeader'
+import PercentageDataList from '@/components/PercentageDataList'
+import PlainDataList from '@/components/PlainDataList'
 
 const USE_DATABASE = false
-
-function DesktopIcon() {
-  return <div className="w-14 h-full bg-red-300 rounded-sm overflow-hidden" />
-}
-function TabletIcon() {
-  return <div className="w-14 h-full bg-green-300 rounded-sm overflow-hidden" />
-}
-function MobileIcon() {
-  return <div className="w-14 h-full bg-blue-300 rounded-sm overflow-hidden" />
-}
-function AnotherIcon() {
-  return (
-    <div className="w-14 h-full bg-orange-300 rounded-sm overflow-hidden" />
-  )
-}
-function YetAnotherIcon() {
-  return (
-    <div className="w-14 h-full bg-purple-300 rounded-sm overflow-hidden" />
-  )
-}
 
 function devicesDataToItems(data?: DevicesData) {
   if (!data) return []
@@ -57,15 +49,15 @@ function devicesDataToItems(data?: DevicesData) {
 function browsersDataToItems(data?: BrowsersData) {
   if (!data) return []
   return [
-    { name: 'Chrome', value: data.chromePercentage, Icon: DesktopIcon },
+    { name: 'Chrome', value: data.chromePercentage, Icon: ChromeDesktopIcon },
     {
       name: 'Chrome Mobile',
       value: data.chromeMobilePercentage,
-      Icon: TabletIcon,
+      Icon: ChromeMobileIcon,
     },
-    { name: 'Firefox', value: data.firefoxPercentage, Icon: MobileIcon },
-    { name: 'Edge', value: data.edgePercentage, Icon: AnotherIcon },
-    { name: 'Safari', value: data.safariPercentage, Icon: YetAnotherIcon },
+    { name: 'Firefox', value: data.firefoxPercentage, Icon: FirefoxIcon },
+    { name: 'Edge', value: data.edgePercentage, Icon: EdgeIcon },
+    { name: 'Safari', value: data.safariPercentage, Icon: SafariIcon },
   ]
 }
 

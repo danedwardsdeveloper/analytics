@@ -33,7 +33,7 @@ interface AppContextValue {
 const AppContext = createContext<AppContextValue | undefined>(undefined)
 
 export function AppProvider({ children }: { children: ReactNode }) {
-  const [signedIn, setSignedIn] = useState(false)
+  const [signedIn, setSignedIn] = useState(true)
   const [rawMessage, setRawMessage] = useState<string | null>(null)
   const [message, setMessage] = useState<string | null>(null)
   const [messageCount, setMessageCount] = useState(1)
@@ -101,7 +101,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   }
 
   useEffect(() => {
-    checkAuthState()
+    // checkAuthState()
   }, [])
 
   return (
