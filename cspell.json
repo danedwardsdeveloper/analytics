@@ -1,0 +1,3 @@
+{
+  "ignorePaths": ["Dockerfile", "pnpm-lock.yaml"]
+}
