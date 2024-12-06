@@ -2,11 +2,11 @@
 import { generateHash } from './src/app/api/auth/sign-in/route'
 
 async function createPasswordHash() {
-  const password = ''
+  const password = 'my-password'
   try {
     const hash = await generateHash(password)
     /* eslint-disable */
-    console.log('Your password hash (add this to .env as ADMIN_PASSWORD_HASH):')
+    console.log('Password hash:')
     console.log(hash)
     /* eslint-enable */
   } catch (error) {
