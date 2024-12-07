@@ -15,6 +15,12 @@ type ReferralsData = Array<{
   value: number
 }>
 
+type LinkClickData = Array<{
+  name: string
+  source: string
+  value: number
+}>
+
 export interface DevicesData {
   desktopPercentage: number
   tabletPercentage: number
@@ -38,4 +44,5 @@ export interface SiteAnalyticsData {
   referralsData: ReferralsData
   devicesData: DevicesData
   browsersData: BrowsersData
+  linkClicksData: LinkClickData
 }
