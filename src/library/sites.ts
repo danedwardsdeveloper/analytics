@@ -16,11 +16,6 @@ export const sitesData: Site[] = [
     description: 'Pop music production and songwriting portfolio site',
   },
   {
-    displayName: 'Dan Digresses',
-    slug: 'dan-digresses',
-    description: 'Personal blog without a theme',
-  },
-  {
     displayName: 'Dan Edwards Developer',
     slug: 'dan-edwards-developer',
     description: 'Web development portfolio site',
@@ -29,5 +24,10 @@ export const sitesData: Site[] = [
     displayName: 'Digital Book Shop',
     slug: 'digital-book-shop',
     description: 'Online bookshop selling digital downloads',
+  },
+  {
+    displayName: 'Scherzo Scores',
+    slug: 'scherzo-scores',
+    description: 'A catalogue of my sheet music arrangements',
   },
 ]
