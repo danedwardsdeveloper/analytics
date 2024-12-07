@@ -49,4 +49,26 @@ export const tempData: SiteAnalyticsData = {
     edgePercentage: 18,
     safariPercentage: 3,
   },
+  linkClicksData: [
+    {
+      name: 'Site credit',
+      source: '/',
+      value: 27,
+    },
+    {
+      name: 'Instagram',
+      source: '/contact',
+      value: 14,
+    },
+    {
+      name: 'GitHub',
+      source: '/',
+      value: 13,
+    },
+    {
+      name: 'Spotify',
+      source: '/links',
+      value: 9,
+    },
+  ],
 }
