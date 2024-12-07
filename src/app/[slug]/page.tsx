@@ -34,6 +34,7 @@ import {
 import PageHeader from '@/components/PageHeader'
 import PercentageDataList from '@/components/PercentageDataList'
 import PlainDataList from '@/components/PlainDataList'
+import Spinner from '@/components/Spinner'
 
 const USE_DATABASE = false
 
@@ -69,7 +70,7 @@ interface Props {
 
 export default function Page({ params }: Props) {
   const { slug } = use(params)
-  const { signedIn, timeRange } = useApp()
+  const { signedIn, timeRange, isLoading } = useApp()
   const router = useRouter()
   const [pageViewsData, setPageViewsData] = useState<PageViewsData | null>(null)
   const databaseName = `${slug}-analytics` as DatabaseNames
@@ -121,13 +122,28 @@ export default function Page({ params }: Props) {
     referralsData,
     devicesData,
     browsersData,
+    linkClicksData,
   } = tempData
+
+  if (isLoading) {
+    return (
+      <>
+        <PageHeader title={site.displayName} intro={site.description} />
+        <HardcodedDataWarning display={true} />
+        <Divider margin="my-6" />
+        <div className="flex justify-center">
+          <Spinner />
+        </div>
+      </>
+    )
+  }
 
   return (
     <>
       <PageHeader title={site.displayName} intro={site.description} />
       <HardcodedDataWarning display={true} />
       <Divider margin="my-6" />
+
       <DataCards
         cards={[
           { title: 'Page views', value: totalViews },
@@ -138,22 +154,26 @@ export default function Page({ params }: Props) {
       <Divider margin="my-6" />
       <div className="flex flex-col divide-y divide-gray-200">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 py-8">
-          <DataContainer title="Page views">
-            <PlainDataList items={views} />
-          </DataContainer>
-
           <CountriesList countriesData={countriesData} />
-
-          <DataContainer title="Devices">
-            <PercentageDataList items={devicesDataToItems(devicesData)} />
-          </DataContainer>
 
           <DataContainer title="Browsers">
             <PercentageDataList items={browsersDataToItems(browsersData)} />
           </DataContainer>
 
+          <DataContainer title="Devices">
+            <PercentageDataList items={devicesDataToItems(devicesData)} />
+          </DataContainer>
+
           <DataContainer title="Referrals">
             <PlainDataList items={referralsData} />
+          </DataContainer>
+
+          <DataContainer title="Page views">
+            <PlainDataList items={views} />
+          </DataContainer>
+
+          <DataContainer title="Link clicks">
+            <PlainDataList items={linkClicksData} />
           </DataContainer>
         </div>
       </div>
