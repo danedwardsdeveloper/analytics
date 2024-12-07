@@ -2,10 +2,11 @@ import { isProduction } from './environment'
 
 const oneMonthInSeconds = 30 * 24 * 60 * 60
 
-export const cookieName = 'token'
+type CookieName = 'token'
+export const cookieName: CookieName = 'token'
 
 type CookieOptions = {
-  name: 'token'
+  name: CookieName
   value: string
   httpOnly: boolean
   secure: boolean
@@ -16,7 +17,7 @@ type CookieOptions = {
 
 export function createCookieOptions(tokenValue: string): CookieOptions {
   return {
-    name: 'token',
+    name: cookieName,
     value: tokenValue,
     httpOnly: true,
     secure: isProduction,
